@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="offset-10 col-md-2">
+    <a href="#">Create WeatherForecast</a>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Forecast date</th>
+            <th>Temperature C</th>
+            <th>Temperature F</th>
+            <th>Summary</th>
+            <th>Details</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let weatherforecast of weatherForecasts">
+            <td>{{ weatherforecast.date }}</td>
+            <td>{{ weatherforecast.temperatureC }}</td>
+            <td>{{ weatherforecast.temperatureF }}</td>
+            <td>{{ weatherforecast.summary }}</td>
+            <td>
+              <button type="button" id="details" class="btn btn-light">
+                Details
+              </button>
+            </td>
+            <td>
+              <button type="button" id="update" class="btn btn-success">
+                Update
+              </button>
+            </td>
+            <td>
+              <button type="button" id="delete" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
