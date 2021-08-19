@@ -58,6 +58,23 @@ namespace CompanyEmployees.Client
                 {
                     RoleClaimType = "role"
                 };
+
+                opt.Scope.Add("companyApi");
+
+                opt.Scope.Add("position");
+                opt.Scope.Add("country");
+                opt.ClaimActions.MapUniqueJsonKey("position", "position");
+                opt.ClaimActions.MapUniqueJsonKey("country", "country");
+            });
+
+            services.AddAuthorization(authOpt =>
+            {
+                authOpt.AddPolicy("CanCreateAndModifyData", builder =>
+                {
+                    builder.RequireAuthenticatedUser();
+                    builder.RequireClaim("position", "Administrator");
+                    builder.RequireClaim("country", "USA");
+                });
             });
 
             services.AddControllersWithViews();

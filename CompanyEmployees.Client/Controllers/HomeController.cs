@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -45,11 +46,15 @@ namespace CompanyEmployees.Client.Controllers
 
                 return View(weatherViewModel);
             }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Forbidden)
+            {
+                return RedirectToAction("AccessDenied", "Account");
+            }
 
             throw new Exception($"Problem with fetching data from the API: {response.ReasonPhrase}");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "CanCreateAndModifyData")]
         public async Task<IActionResult> Privacy()
         {
             var client = new HttpClient();
